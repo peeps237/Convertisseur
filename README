@@ -1,0 +1,33 @@
+1- Le programme permet de donner un fichier texte en entree du programme qui sera traité pour convertir des chiffres.
+2- Les données du fichier sont verticales et sur une colonne.
+3- Je vérifie les valeurs des lignes parcourues selon le format et je fais la conversion adéquate: 
+	=> soit j'ai un entier que je convertis en romain
+	=> soit j'ai un chiffre romain que je convertis en entier
+4- A l'execution, il faut renseigner le fichier contenant les données à convertir en ligne de commande comme ceci:
+java -jar target\Conversion-0.0.1-SNAPSHOT-jar-with-dependencies.jar <fileName>
+C:\File\test.txt étant le fichier qui m'a servi pour l'exercice. Bien entendu, vous pouvez mettre un autre fichier respectant le formattage demandé.
+5- J'ai choisi d'extraire les résultats dans un fichier csv que j'ai construit vu la volumétrie (pas besoin de la lib open csv) :-)
+
+6- Le packaging est fait avec Maven 3.3 et le programme executé avec java 7. 
+7- La nommenclature du fichier de sortie est de la forme: F_CHIFFRES_ROMAINS_YYYYMMDD_HHMMSS où
+YYYYMMDD_HHMMSS correspond au timestamp de l'extraction
+Le convertisseur générera un fichier de sortie avec les couples convertis avec le format ci-dessous.
+	Exemple de fichier d’entrée :
+153
+249
+583
+1963
+3875
+	Exemple de fichier de sortie :
+(153, CLIII)
+(249, CCXLIX)
+(583, DLXXXIII,)
+(1963, MCMLXIII)
+(3875, MMMDCCCLXXV)
+
+8- Les tests unitaires sont fait avec JUnit.
+9- J'ai essayé de faire au plus simple, même si ce n'est pas parfait.
+J'ai mis en place une flexibilité pour rendre le programme configurable (token avec filtre maven, journalisation des logs applicatives, etc...).
+Dans mon cas, mes logs sont tracées dans le fichier C:\logs\p1-leadsbox et les csv ici: C:\Users\samuel\csv
+
+Temps consacré: 3h30

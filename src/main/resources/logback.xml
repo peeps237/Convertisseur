@@ -1,0 +1,62 @@
+<configuration>
+
+	<!-- Chemin où sont stockés les fichiers de log -->
+	<property name="LOG_FOLDER" value="${log.folder}" />
+	<!-- Nom du fichier de log, sans son extension -->
+	<property name="LOG_FILENAME" value="${log.filename}" />
+	<!-- Environnement local/autres -->
+	<property name="LOG_ENV" value="${log.env}" />
+
+	<!-- Appender Logging dans un fichier : définition d'un type d'écriture 
+		de log -->
+	<appender name="ROLLING"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_FOLDER}/${LOG_FILENAME}.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- Archivage journalier en zip -->
+			<fileNamePattern>${LOG_FOLDER}/${LOG_FILENAME}-%d{yyyy-MM-dd}.%i.log.zip
+			</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<!-- ou si la taille du fichier de logs dépasse 100MB -->
+				<maxFileSize>100MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<encoder>
+			<!-- Pattern de log -->
+			<!-- %d{yyyy/MM/dd HH:mm:ss.SSS,Europe/Paris} : représente la date -->
+			<!-- [%thread] : le nom du thread déclenchant la log -->
+			<!-- %-5level : le niveau de log (INFO, DEBUG, ERROR) -->
+			<!-- %logger : la classe Java déclenchant la log -->
+			<!-- %msg%n : le message que vous logguez dans votre classe Java -->
+			<pattern>%d{yyyy/MM/dd HH:mm:ss.SSS,Europe/Paris} [%thread] %-5level %logger - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<!-- Appender Logging dans la console : définition d'un type d'écriture 
+		de log -->
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{yyyy/MM/dd HH:mm:ss.SSS,Europe/Paris} [%thread] %-5level %logger{36}.%method\(%line\) - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<!-- Activation de traces en mode INFO uniquement pour les classes dont 
+		le package commence par org.springframework -->
+	<logger name="org.springframework" level="${log.springlevel}" />
+	
+	<!-- Activation de traces en mode INFO uniquement pour toutes les autres 
+		classes -->
+	<root level="${log.rootlevel}">
+		<!-- Activation de l'appender ROLLING : on veut logger dans un fichier -->
+		<appender-ref ref="ROLLING" />
+
+		<if condition='"DEV".equals(property("log.env"))'>
+			<then>
+				<!-- Activation de l'appender STDOUT: on veut logger également en console -->
+				<appender-ref ref="STDOUT" />
+			</then>
+		</if>
+	</root>
+
+</configuration>
