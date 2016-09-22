@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 import metier.ChiffresRomains;
 
 public class App {
-	static final Logger LOGGER = LoggerFactory.getLogger(ChiffresRomains.class);
+	static final Logger LOGGER = LoggerFactory.getLogger(App.class);
 	public static void main(String[] args){
 		try {
 		    if (args.length == 1) {
