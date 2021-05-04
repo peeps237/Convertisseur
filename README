@@ -1,4 +1,4 @@
-1- Le programme permet de donner un fichier texte en entree du programme qui sera traité pour convertir des chiffres.
+Le programme permet de donner un fichier texte en entree du programme qui sera traité pour convertir des chiffres.
 2- Les données du fichier sont verticales et sur une colonne.
 3- Je vérifie les valeurs des lignes parcourues selon le format et je fais la conversion adéquate: 
 	=> soit j'ai un entier que je convertis en romain
